@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mystery Word Game</title>
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <div id='gameWord'>
+      <h1>Mystery Word Game</h1>
+      {{#hiddenwordOutput}}
+      {{.}}
+      {{/hiddenwordOutput}}
+      {{word}}
+    </div>
+    <div id='makeGuess'>
+      <form action="/makeGuess" method="post" id="word_game">
+        <input type="text" name="ltr_guess" placeholder="Guess one letter">
+        <input type="submit" name="guess" value="Make a guess">
+      </form>
+    </div>
+    <div class="guessesLeft">
+      <!-- <p>Letters guessed:{{lettersguessed}} </p> -->
+      <p>You have {{guessesLeft}} guesses left</p>
+    </div>
+    <div>
+      <form action="/restartApp" method="post" id="restart">
+        <input type="submit" name="restartBtn" value="Restart Game">
+      </form>
+    </div>
+  </body>
+</html>
