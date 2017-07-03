@@ -24,17 +24,21 @@ app.set('views', './views');
 app.set ('view engine', 'mustache');
 
 let maxGuesses = 8,
-    mysteryWord = " ",
+    mysterWord = " ",
     hiddenword = [],
+    ltrGuesses = [],
     word = [],
     letter;
 
  function getRandWord(){
   let i = Math.floor(Math.random()* words.length);
-  mysteryWord = words[i];
-  upWord = mysteryWord.toUpperCase();
+  mysterWord
+ = words[i];
+  upWord = mysterWord
+.toUpperCase();
   word = upWord.split("");
-  return mysteryWord;
+  return mysterWord
+;
 }
 
 function showLtr(){
@@ -46,7 +50,24 @@ function showLtr(){
   return hiddenword;
 }
 
+// function takeAGuess(){
+//   let wordGuess = window.prompt('Take a guess at the word!');
+//   if(wordGuess == mysterWord){
+//
+//   }
+// }
 
+function youWin(){
+  let winner;
+  if(hiddenword.indexOf('_ ') == -1){
+    winner = true;
+  }else if(maxGuesses == 0){
+    winner = false;
+  }else{
+    winner = 'stilltrying';
+  }
+  return winner;
+}
 
 app.get('/', function(req, res) {
   if(maxGuesses == 8){
@@ -55,17 +76,15 @@ app.get('/', function(req, res) {
       hiddenword.push('_ ');
     }
   }
-
   if(letter){
     showLtr();
+    youWin();
   };
-
   res.render("index", {
-  word:mysteryWord,
+  word:mysterWord,
   hiddenwordOutput:hiddenword,
   guessesLeft:maxGuesses
   });
-
 });
 
 app.post('/makeGuess',function(req,res) {
@@ -77,11 +96,13 @@ app.post('/makeGuess',function(req,res) {
   }
   let charGuess = req.body.ltr_guess;
   letter = charGuess.toUpperCase();
-
+  if(letter){
+    ltrGuesses.push(letter + ", ");
+  }
 });
 
 app.get('/restartApp',function(req,res){
-  res.render('restart');
+  res.render('restart',{chkIfWin:winner});
 });
 
 app.post('/restartApp',function(req,res){
