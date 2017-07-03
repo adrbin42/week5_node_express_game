@@ -24,6 +24,7 @@ app.set('views', './views');
 app.set ('view engine', 'mustache');
 
 let maxGuesses = 8,
+<<<<<<< HEAD
     mysterWord = " ",
     hiddenword = [],
     ltrGuesses = [],
@@ -85,6 +86,63 @@ app.get('/', function(req, res) {
   hiddenwordOutput:hiddenword,
   guessesLeft:maxGuesses
   });
+=======
+    mysteryWord = " ",
+    guessedRight = [],
+    letter;
+
+ function getRandWord(mysterWord){
+  let i = Math.floor(Math.random()* words.length);
+  mysteryWord = words[i];
+  return mysteryWord;
+}
+
+
+
+function showLtr(guess){
+
+  let upWord = mysteryWord.toUpperCase();
+  let word = upWord.split("");
+
+
+  let index = word.indexOf(guess);
+  let letterFound = word[index];
+  console.log(letterFound);
+  for(let i = 0;i<word.length;i++){
+
+  }
+  // word.forEach(function(letter){
+  //
+  //   letGuessed.push(word[i].indexOf(letter));
+  // })
+  // let letGuessed = word.indexOf(letter);
+  // word.forEach(function(letter){
+  //   letGuessed =
+  // })
+
+  // console.log(letGuessed);
+
+  // if(index !== -1){
+  // alert("You guessed correctly!");
+  // letGuessed.push(word[index]);
+  // }
+
+  return letGuessed;
+}
+
+app.get('/', function(req, res) {
+  let underscores;
+  if(maxGuesses == 8){
+    getRandWord(mysteryWord);
+  }
+
+  if(letter){showLtr(letter);}
+  // console.log(showLtr("i","Adriinni"));
+  res.render("index", {word:mysteryWord,
+  hiddenword:underscores,
+  guessesLeft:maxGuesses});
+
+>>>>>>> 3e09b86841ddebf47ffebb4b0815dcd15d319e13
 });
 
 app.post('/makeGuess',function(req,res) {
@@ -96,6 +154,7 @@ app.post('/makeGuess',function(req,res) {
   }
   let charGuess = req.body.ltr_guess;
   letter = charGuess.toUpperCase();
+<<<<<<< HEAD
   if(letter){
     ltrGuesses.push(letter + ", ");
   }
@@ -111,6 +170,19 @@ app.post('/restartApp',function(req,res){
   hiddenword = [];
   word = [];
   letter = "";
+=======
+
+});
+
+app.get('/restartApp',function(req,res){
+  res.render('restart');
+});
+
+app.post('/restartApp',function(req,res){
+  mysterWord = " ";
+  maxGuesses = 8;
+  letGuessed = [];
+>>>>>>> 3e09b86841ddebf47ffebb4b0815dcd15d319e13
   res.redirect("/");
 });
 
